@@ -1,0 +1,627 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% 
+% Author: Justin Bradley
+% Title: justin_bradley_cv.tex
+% Date: Sunday, October 02, 2016
+% Description: Curriculum Vitae for COE at UNL
+%
+% Changes:
+% 2020-10: Update to latest version of COE CV template. Add nice comments and
+% instructions for others to use the template.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Instructions:
+% 1. Fill in values just below
+% 2. Choose your tags, or just delete them if you like. I use tags so that I can
+% remove/add some things for internal vs. external consumption (e.g., SAP WBS
+% numbers)
+% 3. Populate a bibtex file with your publications. Cite your publications like
+% normal in the appropriate sections (see examples below). Be sure to use $^1$
+% etc. to indicate your MS, PhD, or BS students as indicated by the template
+% (see Section "Publication Record" below).
+
+% NOTE: All the sections in this template are required by COE whether you have
+% something that goes in the sections or not. So don't delete any sections,
+% subsections, or subsubsections. The only exceptions are tagged/untagged that
+% are for external use and are extensively commented below.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% get the preamble
+\input{preamble_CV.inc}
+
+% Fill in these values:
+\newcommand{\UNLname}{Sample Q. Example}
+% this is your surname or another name that identifies you in an author list
+% (used to bold your name in your publications assuming you use one my BST files)
+\newcommand{\UNLcitename}{Bradley}
+\newcommand{\UNLrank}{Assistant Professor}
+\newcommand{\UNLdept}{Computer Science and Engineering Department}
+\newcommand{\UNLphone}{(402) 472-0000}
+\newcommand{\UNLaddress}{301 Schorr Center}
+\newcommand{\UNLemail}{sampleqexample@unl.edu}
+\newcommand{\UNLwebsite}{\url{your.website.com}}
+
+% Tags that turn on and off certain pieces based on whether you are compiling
+% the CV for internal, external, or COE/P&T use:
+% INTERNAL - things that should be included when printed for in-house review
+% currently:
+% 1. Turns on unfunded grants
+% 2. Turns on SAP WBS numbers
+
+% PANDT - things that only go in, or removed when submitting for P&T
+% currently:
+% 1. turns on table indicating changes made
+% 2. turns on grant summary tables in the "Grantsmanship Record"
+
+% COE - things that get included, or removed for COE
+% currently:
+% 1. Turns off Teaching Accomplishments (in classroom)
+
+\usetag{INTERNAL}
+\usetag{PANDT}
+\usetag{COE}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% Initial document setup and headers
+
+% This prevents some of the info in the bibtex citations from bleeding over into
+% the right margin.
+% \sloppy
+\emergencystretch 3em
+
+\bibliographystyle{../bst/IEEEtranDOI-boldAuthor}
+% \bibliographystyle{IEEEtran}
+% this magic lets the compiler load the .bbl file
+% needed as part of the bibentry package. Stores the bib entries but doesn't
+% print a bibliography.
+\nobibliography{my_citations}
+
+% Title and heading
+\CVheading{curriculum vitae}
+
+
+% Print the changes table for COE P&T
+\begin{taggedblock}{PANDT} % Only for P&T
+  \vspace{1cm}
+  \footnotesize%
+  Date of Original Submission: 08/14/2020\\
+  Current Version Number and Date Submitted as part of Candidate's P\&T package:
+  \newline
+
+  \textbf{\emph{Table of Changes Made to CV since Original Submission}}
+  \vspace{-15pt}
+  \begin{center}
+    \begin{longtable}{@{}C{1cm}T{1.5cm}T{13cm}@{}}
+      \toprule 
+      \textbf{Version} & \textbf{Date} & \textbf{Changes (listed by subsection \#)}\tabularnewline
+      \midrule 
+      1 & 08/14/2020 & Original submission\tabularnewline
+      2 & 10/08/2020 & Added a funded grant\tabularnewline
+      3 & 10/14/2020 & Added another publication\tabularnewline
+      \bottomrule
+    \end{longtable}\normalsize%
+    \par\end{center}
+\end{taggedblock}
+
+\section{Education and Employment History}
+
+\subsection{Education History}
+\begin{mydesc}
+\item[Your University]\hfill Somewhere\\
+  % note that the "[]" after the \item prevent LaTeX from printing a bullet
+  \textit{Ph.D., your area}\hfill August 2014\\
+  Thesis: Example dissertation title\\
+  Adviser: Dr. Your Adviser\\
+  Area of Study: Your area of study
+
+\end{mydesc}
+
+\subsection{Employment History}
+\begin{mydesc}
+
+  % Include any officially recognized positions such as visiting scholar, adjunct
+  % professor, etc. at institutions other than UNL
+
+  % UNL
+\item[University of Nebraska]\hfill Lincoln, NE
+  \begin{itemize}
+  \item \textbf{Assistant Professor}\hfill August 2015--current
+  \item[] Your department
+  \end{itemize}
+\end{mydesc}
+
+% Section 2
+\section{Research Accomplishments}
+
+% section 2.1
+\subsection{Publication Record}
+
+% NOTE 1:
+% For \pubaddendum[tier][h-index or impact]:
+% Parameters:
+% #1 (optional) = what tier (first, second, third)
+% #2 (optional) = other information (h-index, impact factor, etc.)
+% Usage examples:
+% \pubaddendum[1] yields "(1st tier)" in bold
+% \pubaddendum[2][25\% acceptance rate] yields "(2nd tier, 25% acceptance rate)" in bold
+% \pubaddendum[][impact: 5.138] yields "(impact: 5.138)" in bold
+
+% NOTE 2:
+% For the publications, I use J# (e.g., J1, J2) for journals, and C# (e.g., C1,
+% C2) for conferences. This lets me refer to them easily in a corresponding
+% research statement. If this is undesired, you can use the list mybibenum
+% rather than journalbib or conferencebib.
+
+% NOTE 3:
+% To list publications I use a standard bibtex file (i.e., .bib), along with
+% bibentry as seen below. This is handy and avoids having to manually enter
+% publications. To get the bold author you'll need to modify the
+% bibliographystyle file. I can share mine if you want.
+
+\emph{
+  The following subscripts are used to indicate student and other co-authors
+  under my supervision:\\
+  1: Undergraduate student\\
+  2:  Masters student\\
+  3: Ph.D. student\\
+  4: Postdoctoral researcher\\
+  \\% change/remove this note as needed
+  \textbf{NOTE: In my publications I place myself as last author (organizing
+    author) on
+    papers with students, unless I did the super-majority of the work.}
+}
+
+
+% Section 2.1.1
+\subsubsection{Peer Reviewed Journal Publications in Print}
+% Numbered list (in reverse chronological order) of Peer Reviewed Journal
+% Publications in print, complete bibliographic citation including author names 
+% in order they appear on paper, full journal name, volume number, page numbers,
+% etc., (or DOI in lieu of volume and page numbers), and % of your contribution.
+% \begin{mybibenum}
+\begin{journalbib}
+  % \setcounter{journalbibi}{1}
+\item \bibentry{shang2020cooptimal}, \pubaddendum[][impact: 4.292]
+\end{journalbib}
+
+% Section 2.1.2
+\subsubsection{Peer Reviewed Journal Publications Accepted for Publication}
+% Numbered list (in reverse chronological order) of Peer Reviewed Journal
+% Publications accepted for publication with or without revision.  Note that
+% papers with “re-review required” or equivalent should
+% not appear in this category.  The citation should include complete 
+% bibliographic citation including author names in order they appear on paper, 
+% full journal name, date of submittal, date of acceptance, and % of your 
+% contribution.  An acceptance letter written on official letterhead of the 
+% journal or of the appropriate journal letter must be included in Appendix A.
+
+% \begin{journalbib}
+%   % \setcounter{journalbibi}{0}
+% \end{journalbib}
+
+% Section 2.1.3
+\subsubsection{Peer Reviewed Journal Publications Submitted for Review}
+% Numbered list (in reverse chronological order) of Peer Reviewed Journal Publications submitted for review but not yet accepted or accepted with “re-review required” or equivalent.  Include the name of journal, author list, date submitted and % of your contribution
+
+% Section 2.1.4
+\subsubsection{Books and Book Chapters}
+% Numbered List (in reverse chronological order) of Books and Book Chapters,
+% author list, publisher, year, and % of your contribution
+
+% Section 2.1.5
+\subsubsection{Conference Proceedings: Peer Reviewed}
+% Numbered list (in reverse chronological order) of Conference Proceedings: Peer
+% reviewed extended abstract or peer reviewed paper.  Include full conference
+% title, author names in order they appear on paper, dates of conference,
+% location of conference, and page numbers (or number of pages).
+
+% restart the mybibenum counter
+% \restartlist{mybibenum}
+\begin{conferencebib}
+\item \bibentry{balasubramaniam2020investigating}, \pubaddendum[1][24\%
+  acceptance rate], \textbf{\emph{ICCPS Best Paper session}}
+\end{conferencebib}
+
+
+% NOT INCLUDED IN OFFICIAL COE CV TEMPLATE but needed for computer science
+\subsubsection*{Peer Reviewed Conference Proceedings Submitted for Review}
+
+
+% Section 2.1.6
+\subsubsection{Conference Proceedings: Other than Peer Reviewed}
+% Numbered list (in reverse chronological order) of Conference Proceedings:
+% Other than peer reviewed.  Include full conference title, author names in
+% order they appear on paper, dates of conference, location of conference, and page numbers (or number of pages).
+
+
+% Section 2.1.7
+\subsubsection{Conference Presentations}
+% Numbered list (in reverse chronological order) Conference
+% Presentations. Include full conference title, author names in order they
+% appear on presentation, dates of conference, and location of
+% conference. Underline the name of the presenter.
+
+% Section 2.1.8
+\subsubsection{Invited Talks/Keynote Speeches}
+% Numbered list (in reverse chronological order) of Invited talks or Keynote Speeches.  Indicate title of presentation, location, sponsor, and date.
+\begin{myenum}
+\item ``Title of your talk,'' Some other University,
+  Sponsor: your friend. Date of your talk
+\end{myenum}
+
+% Section 2.1.9
+\subsubsection{Other Publications}
+% Numbered list (in reverse chronological order) of Other Publications
+
+% restart the mybibenum counter
+\restartlist{mybibenum}
+% workshop pubs
+
+
+% 2.2
+\subsection{Grantsmanship Record}
+% In Appendix B , include a copy of the 1st page of the UNL Request for Proposal
+% Approval and Submission form (known as Pro-form) and a copy of the award
+% notification with SAP WBS Account Number (if funded).  These documents should 
+% be in the same order as listed in Sections 2.2.1, 2.2.2 and 2.2.3.
+
+
+% 2.2.1
+\subsubsection{Internally Funded Research Grants}
+% Numbered list (in reverse chronological order) of Internally Funded Research
+% Grants.  Include the title of the project, funding agency, dates of project, 
+% PI and Co-PI’s, sponsor amount, UNL Cost share amount, total amount, amount
+% attributable to you, SAP WBS Account Number.
+% For each project provide a short, one paragraph description of the project.
+
+\begin{taggedblock}{PANDT} % Only for P&T
+  \begin{center}
+    \footnotesize
+    \begin{longtable}{@{}T{6.6cm}T{1.5cm}T{0.8cm}T{2.3cm}T{1.3cm}T{1.9cm}@{}}
+      \toprule 
+      \textbf{Project Title} & \textbf{Sponsor} & \textbf{Role} & \textbf{Dates}
+      & \textbf{Total Amount} & \textbf{\% Attributed to Candidate}\tabularnewline
+      \midrule 
+      Project title & CAS & PI & 08/2019--08/2020 & \$10,000 &
+      100\%\tabularnewline
+      \bottomrule
+    \end{longtable}\normalsize%
+    \end{center}
+\end{taggedblock}
+
+% Listing of grants
+% I got tired of keeping track of and writing out grant stuff. So I built LaTeX
+% commands that just print my grants. 
+\begin{grantsenum}
+\item UNL College of Arts and Sciences. \emph{Project title}. Total: \$10,000
+  (apportionment: 100\%), 08/2019–08/2020, PI (UNL): You, \tagged{INTERNAL}{SAP
+    WBS: internal numbers}
+  \begin{description}
+    \item[Description:] Description of project
+      \end{description}
+\end{grantsenum}
+
+% 2.2.2
+\subsubsection{Externally Funded Research Grants}
+% Numbered list (in reverse chronological order) of Externally Funded Research
+% Grants.  Include the title of the project, funding agency, dates of project, 
+% PI and Co-PI’s, sponsor amount, UNL Cost share amount, total amount, amount
+% attributable to you, SAP WBS Account Number, 
+% For each project provide a short, one paragraph description of the project.
+
+\begin{taggedblock}{PANDT} % Only for P&T
+  \begin{center}
+    \footnotesize
+    \begin{longtable}{@{}T{6.6cm}T{1.5cm}T{0.8cm}T{2.3cm}T{1.3cm}T{1.9cm}@{}}
+      \toprule 
+      \textbf{Project Title} & \textbf{Sponsor} & \textbf{Role} & \textbf{Dates}
+      & \textbf{Total Amount} & \textbf{\% Attributed to Candidate}\tabularnewline
+      \midrule 
+      Externally funded project title & USDA & Co-PI & 09/2016--12/2020 & \$949,716 &
+      50\%\tabularnewline  
+      \bottomrule
+    \end{longtable}\normalsize%
+    \end{center}
+\end{taggedblock}
+
+% Listing of grants
+\begin{grantsenum}
+\item USDA. \emph{Externally funded project title}. Total: \$949,716, UNL:
+  \$587,317 (apportionment: 50\%/\$264,820), 09/2016–12/2020, PI (UNL): who?, PI
+  (other place): your friend, Co-PI (UNL): you?, USDA-NIFA \#numbers,
+  \tagged{INTERNAL}{SAP WBS: internal numbers}
+  \begin{description}
+  \item[Description:] Very good description.
+  \end{description}
+
+\end{grantsenum}
+
+% 2.2.3
+\subsubsection{Externally Funded Research Grants Submitted}
+% Numbered list (in reverse chronological order) of Externally Funded
+% Research Grants that have been submitted. Include the title of the project,
+% funding agency, dates of project, PI and Co-PI’s, sponsor amount, UNL Cost  
+% share amount, total amount, amount attributable to you, and date of 
+% submission.
+
+% 2.2.4
+\subsubsection{External Research Grants Submitted Through Other Institutions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only include external, unfunded grants for internal use
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{taggedblock}{INTERNAL}
+
+  % 2.2.5
+  \subsubsection{External Research Grants Submitted but not Funded}
+  % Numbered list (in reverse chronological order) of Externally
+  % Research Grants Submitted but not Funded, Funding Source, list of Co-PI’s, 
+  % Face Value
+
+\end{taggedblock}
+
+% 2.2.6
+\subsubsection{External Research Grants Submitted Through Other Institutions but
+  not Funded}
+
+% These are to comply with the COE CV template, but I don't use them in my CV
+\begin{taggedblock}{COE}
+  % Section 2.3
+  \subsection{Other (Non-Research) Funding Record}
+  % 2.3.1
+  \subsubsection{Internally Funded Non-Research Grants}
+  % 2.3.2
+  \subsubsection{Externally Funded Non-Research Grants}
+  % 2.3.3
+  \subsubsection{External Non-Research Grants Submitted}
+  % 2.3.4
+  \subsubsection{External Non-Research Grants Through Other Institutions
+    Submitted}
+  % 2.3.5
+  \subsubsection{External Non-Research Grants but not Funded}
+  % 2.3.6
+  \subsubsection{External Non-Research Grants through other Institutions but not Funded}
+
+\end{taggedblock}
+
+% Section 2.4
+\subsection{Research Patents and Awards}
+% 2.4.1
+\subsubsection{Patents}
+% 2.4.2
+\subsubsection{National and International Research Awards and Recognition}
+
+% 2.4.3
+\subsubsection{Regional and Local Research Awards and Recognition}
+
+% 2.5
+\subsection{Other Research Accomplishments}
+
+\subsubsection{Infrastructure Available to Community}
+
+% Section 3
+\section{Teaching Accomplishments (other than classroom instruction)}
+
+% 3.1
+\subsection{Postdoctoral Researchers}
+% 3.1.1
+\subsubsection{Postdoctoral Researchers Supervised}
+% 3.1.2
+\subsubsection{Postdoctoral Researchers in Progress}
+
+% Section 3.2
+\subsection{PhD Students}
+
+% Section 3.2.1
+\subsubsection{PhD Students Supervised}
+% Numbered list (in reverse chronological order) of PhD students supervised.
+% Include co-supervisors, dissertation title, whether you funded the student, 
+% and graduation date.
+\begin{myenum}
+  \item Your graduated student
+\end{myenum}
+
+% Section 3.2.2
+\subsubsection{PhD Students Currently in Progress}
+% Numbered list (in reverse chronological order) of PhD students currently in
+% progress under your supervision.  Include co-supervisors (if any), whether you
+% are funding the student, and expected graduation date.
+
+% Section 3.3.
+\subsection{MS Students}
+% 3.3.1
+\subsubsection{MS Students (thesis option)}
+% include graduation dates
+
+% Section 3.3.2
+\subsubsection{MS Students (thesis option) Currently in Progress}
+% \begin{myenum}
+% \end{myenum}
+
+\subsubsection{Non-Thesis Option Graduate Students Advised}
+\subsubsection{Total Graduate Student Independent Research Projects Supervised}
+
+% \subsubsection{Graduate Student Independent Research Projects Supervised}
+
+% Section 3.4
+\subsection{Undergraduate Students}
+% Section 3.4.1
+\subsubsection{Undergraduate Students Supervised in Independent Research Study}
+% Include full name, year, semester and credit hours
+
+% Section 3.4.2
+\subsubsection{Average number of undergraduate students advised per year}
+
+% Section 3.5
+\subsection{Visiting Scholars and Students}
+% 3.5.1
+\subsubsection{Visiting Scholars and Students Supervised}
+
+% 3.6
+\subsection{Graduate Student Committee Membership}
+% 3.6.1
+\subsubsection{Doctoral Dissertation Committee}
+
+% 3.6.2
+\subsubsection{Masters Thesis Committee}
+
+% 3.6.3
+\subsubsection{Doctoral Dissertation Committee - Other Institutions}
+% 3.6.4
+\subsubsection{Graduate Committee - Other Institutions}
+
+
+% 3.7
+\subsection{Teaching Awards and Recognition}
+% 3.7.1
+\subsubsection{International and National Teaching Awards and Recognition}
+% 3.7.2
+\subsubsection{Regional, Local, and University Teaching Awards and Recognition}
+\begin{myenum}
+  \item Your teaching award.
+\end{myenum}
+
+% 3.8
+\subsection{Other Teaching Accomplishments}
+
+% I prefer to have a full section "Teaching Accomplishments (in classroom)" (see
+% below), but that doesn't comply with the COE CV template. So I put courses
+% developed in "Other Teaching Accomplishments" for COE. For non-COE purposes
+% I put in the other section and put it there.
+
+\begin{taggedblock}{COE}
+  \subsubsection*{Courses Developed}
+\end{taggedblock}
+
+\begin{untaggedblock}{COE}
+  \section{Teaching Accomplishments (in classroom)}
+  \subsection{Courses Developed}  
+\end{untaggedblock}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This stuff doesn't belong in the COE CV template. But I like it for external use
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{untaggedblock}{COE}
+  \subsection{Courses Taught}
+  \begin{myitemize}
+  \item Course \#: Course title\hfill Fall 2019
+    \begin{itemize}
+    \item[] 10 students (6 COMP, 3 MECH, 1 ABSE)
+    \item[] Instructor Effectiveness Rating: 
+    \end{itemize}
+  \end{myitemize}
+
+  \subsection{Teaching Innovations}
+  \begin{myitemize}
+  \item Introduced new course: ``Course title''
+  \end{myitemize}
+
+\end{untaggedblock}
+
+% Section 4
+\section{Service Accomplishments}
+% 4.1
+\subsection{Professional Service}
+% 4.1.1
+\subsubsection{Journal Editorships}
+% numbered list, include dates of service
+
+% 4.1.2
+\subsubsection{Journal Paper Reviewer}
+% numbered list. Include dates of service (month/year). Indicating papers that
+% have been reviewed for each journal
+% Note: I can't remember all the months or papers I've reviewed
+
+
+% not on official COE template but reviewing for conferences is important in CS
+% So this subsubsection doesn't get numbered 
+\tagged{COE}{\subsubsection*{Conference Paper Reviewer}}
+\untagged{COE}{\subsubsection{Conference Paper Reviewer}}
+% numbered list
+
+% 4.1.3
+\subsubsection{Leadership Positions in International and National Organizations}
+% numbered list
+\begin{myenum}
+  \item An important leadership position
+\end{myenum}
+
+% 4.1.4
+\subsubsection{Leadership Positions in Regional and Local Organizations}
+% numbered list
+
+% 4.1.5
+\subsubsection{Memberships in Professional Organizations}
+% numbered list
+
+% 4.1.6
+\subsubsection{National and International Service Awards}
+% numbered list
+
+% 4.1.7
+\subsubsection{Regional and Local Service Awards}
+% numbered list
+
+% 4.1.8
+\subsubsection{Research Review Panels}
+% numbered list, include dates of service
+
+% 4.2
+\subsection{University Service}
+% 4.2.1
+\subsubsection{Leadership Positions on University Wide Committees}
+% % numbered list
+% % include committee name, dates, and title
+
+% 4.2.2
+\subsubsection{Membership Positions on University Wide Committees}
+% % numbered list
+% % include committee name, dates, and title
+
+% 4.3
+\subsection{College Service}
+% 4.3.1
+\subsubsection{Leadership Positions on College Wide Committees}
+% numbered list
+% include committee name, dates, and title
+
+% 4.3.2
+\subsubsection{Membership Positions on College Wide Committees}
+% numbered list
+% include committee name, dates, and title
+
+% 4.4
+\subsection{Unit Service}
+% 4.4.1
+\subsubsection{Leadership Positions on Unit Committees}
+% numbered list
+% include committee name, dates, and title
+
+% 4.4.2
+\subsubsection{Membership Positions on Unit Committees}
+% numbered list
+% include committee name, dates, and title
+
+% 4.5
+\subsection{Other Service Accomplishments}
+
+% Section 5
+\subsection{Other Accomplishments}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
