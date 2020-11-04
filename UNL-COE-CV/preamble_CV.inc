@@ -330,23 +330,29 @@ margin=1in,               % 1 inch margins
 %%%%%%%%%%%%%%%%%% For paper contributions and role %%%%%%%%%%%%%%%%%
 \usepackage{xargs}
 
-% Command for putting in addendum to publications
+% Commands for putting in addendum to publications
+
+\newcommand{\tier}[1]{%
+  \ifthenelse{\equal{#1}{1}}{\textbf{$\mathbf{1^{st}}$ tier}}{}%
+  \ifthenelse{\equal{#1}{2}}{\textbf{$\mathbf{2^{nd}}$ tier}}{}%
+  \ifthenelse{\equal{#1}{3}}{\textbf{$\mathbf{3^{rd}}$ tier}}{}%
+}
+\newcommand{\cont}[1]{%
+  contribution: #1\%%
+}
+\newcommand{\accrate}[1]{%
+  acceptance rate: #1\%%
+}
+\newcommand{\impact}[1]{%
+  impact: #1%
+}
 
 % main command for putting in the addendum
 % Parameters:
-% #1 (optional) = what tier (first, second, third)
-% #2 (optional) = other information (h-index, impact factor, etc.)
-% Usage examples:
-% \pubaddendum[1] yields "(1st tier)" in bold
-% \pubaddendum[2][25\% acceptance rate] yields "(2nd tier, 25% acceptance rate)" in bold
-% \pubaddendum[][impact: 5.138] yields "(impact: 5.138)" in bold
-\newcommandx{\pubaddendum}[2][1=, 2=]{%
-  \textbf{(}%
-    \ifthenelse{\equal{#1}{1}}{\textbf{$\mathbf{1^{st}}$ tier}}{}%
-    \ifthenelse{\equal{#1}{2}}{\textbf{$\mathbf{2^{nd}}$ tier}}{}%
-    \ifthenelse{\equal{#1}{3}}{\textbf{$\mathbf{3^{rd}}$ tier}}{}%
-    \ifthenelse{\isempty{#2}}{}{\ifthenelse{\isempty{#1}}{}{, }\textbf{#2}}%
-  \textbf{)}% final paren
+% Whatever parenthetical text you want bolded after the publication listing
+% Examples: 1st tier
+\newcommand{\pubaddendum}[1]{%
+  \textbf{(#1)}
 }% end newcommand
 
 
