@@ -1,0 +1,197 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% 
+% Author: Justin Bradley
+% Title: UNL_SoC_highlights_template.tex
+% Date: Wednesday, January 19, 2022
+% Description: Describe the highlights from my CV
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+% Fill in these values:
+\newcommand{\UNLname}{First Last}
+% this is your surname or another name that identifies you in an author list
+% (used to bold your name in your publications assuming you use one my BST files)
+\newcommand{\UNLrank}{Associate Professor}
+\newcommand{\UNLdept}{School of Computing}
+\newcommand{\UNLphone}{(402) 472-9999}
+\newcommand{\UNLaddress}{123 Somewhere Avery}
+\newcommand{\UNLemail}{email@unl.edu}
+\newcommand{\UNLwebsite}{\url{yourwebsite@unl.edu}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Helpful commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[11pt]{article}
+\RequirePackage[T1]{fontenc}
+
+\usepackage{times}
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% Adjust section spacing and text
+% Provide a definition to \subparagraph to keep titlesec happy
+\let\subparagraph\paragraph
+% \usepackage[compact]{titlesec}
+\usepackage[explicit]{titlesec}
+
+%% Use these lines for letter-sized paper
+\usepackage[
+% includefoot, % Uncomment to put page number above margin
+% marginparwidth=1.2in,     % Length of section titles
+% marginparsep=.05in,       % Space between titles and text
+margin=1in,               % 1 inch margins
+% showframe                % uncomment this to see the frame
+]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+% used to change spacing around lists
+\usepackage[shortlabels]{enumitem}
+
+%% Format the Footer
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+{0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+% changes the width of the header/footer line
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+% for a right justified page numbering scheme
+\rfoot{\small \thepage\ of \pageref*{LastPage} % +LP
+  % \arabic{page}                               % -LP
+}
+%   add my name to the left hand side of the footer
+\lfoot{\small \UNLname{}}
+\cfoot{\small Last updated: \today}
+
+% Finally, give us PDF links
+\usepackage{hyperref}
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+  linkcolor=darkblue,urlcolor=darkblue,
+  anchorcolor=darkblue,citecolor=darkblue}
+
+% Change the Section Headers
+% requires titlesec package
+
+% underline the whole line
+\titleformat{\section}{\normalfont\large\bfseries\scshape}{\thesection}{1em}{#1}[{\titlerule[0.8pt]}]
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{#1}
+\titleformat{\subsubsection}{\normalfont\itshape}{\thesubsubsection}{1em}{#1}
+
+% Requires enumitem package
+\setlist[itemize]{noitemsep,topsep=0pt,leftmargin=0.3in,partopsep=0pt}
+\setlist[enumerate]{noitemsep,topsep=0pt,leftmargin=0.3in,partopsep=0pt}
+
+% For \url{SOME_URL}, links SOME_URL to the url SOME_URL
+\providecommand*\url[1]{\href{#1}{#1}}
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+\providecommand*\email[1]{\href{mailto:#1}{#1}}
+
+% Header command
+\newcommand\CVheading[1]{{\Large \bf \UNLname{} \hfill \textit{#1}}\\
+  \UNLrank{}\\
+  University of Nebraska--Lincoln\\
+  \UNLdept{}\hfill \textit{Phone:} \UNLphone{}\\
+  \UNLaddress{}\hfill  \textit{E-mail:} \email{\UNLemail{}}\\
+  Lincoln, NE 68588 USA \hfill \textit{Web:} \UNLwebsite{}\vspace{-5pt}
+  \rule{\columnwidth}{2pt}}
+
+\begin{document}
+
+% Put in the header
+\CVheading{Highlights from Previous Year}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Research
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Research}
+
+\begin{itemize}
+  % Papers
+\item Summary of publishing success
+  \begin{itemize}
+  \item Summary of journal publications
+  \item Summary of conference publications
+  \item List important conferences for your field, why you publish there, etc.
+  \end{itemize}
+\item Summary of grantsmanship
+  \begin{itemize}
+  \item List grants awarded, amount, status
+  \item Other grant activity (e.g., grants under submission)
+  \end{itemize}
+\item Summary of awards, accolades, etc.
+  \begin{itemize}
+  \item Fellowships
+  \item Best paper awards
+  \item invited colloquia
+  \item Whatever you want the committee to know about your research
+  \end{itemize}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Teaching
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Teaching}
+\begin{itemize}
+\item Courses:
+  \begin{itemize}
+  \item rankings within specific courses
+  \item \# of peer evals received and done
+  \item teaching large classes and/or senior design
+  \end{itemize}
+\item Mentoring:
+  \begin{itemize}
+  \item MS students, PhD students current
+  \item MS students, PhD students graduated
+  \item BS honors, UCARES, etc.
+  \end{itemize}
+\item Awards:
+  \begin{itemize}
+  \item dept. teaching, college teaching, university teaching awards
+  \item teaching pubs
+  \item authored textbooks
+  \item teaching grants
+  \item innovative teaching and curriculum development
+  \end{itemize}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Service
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Service}
+\begin{itemize}
+\item Internal service:
+  \begin{itemize}
+  \item CS dept. committees
+  \item Chairing CS committees
+  \item College and university committees
+  \item Mentoring jr. faculty and serving as P/T chair
+  \end{itemize}
+\item External service:
+  \begin{itemize}
+  \item Conference PCs
+  \item NSF and other agency panels
+  \item conference org
+  \item editorship
+  \end{itemize}
+\item Awards:
+  \begin{itemize}
+  \item Diversity and inclusion activities
+  \item dept./college/university service awards
+  \item national recognition for service
+  \end{itemize}
+\end{itemize}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
