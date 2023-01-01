@@ -1,14 +1,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % 
 % Author: Justin Bradley
-% Title: justin_bradley_cv.tex
+% Title: exampleCV.tex
 % Date: Sunday, October 02, 2016
 % Description: Curriculum Vitae for COE at UNL
 %
 % Changes:
 % 2020-10: Update to latest version of COE CV template. Add nice comments and
 % instructions for others to use the template.
-%
+% 2023-01:
+%    * Added support for reverse ordering journals, conferences,
+%      grants, and books.
+%    * Added support for listing books
+%    * Cleaned up preamble_CV.inc and added better documentation throughout
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -19,7 +23,7 @@
 % numbers)
 % 3. Populate a bibtex file with your publications. Cite your publications like
 % normal in the appropriate sections (see examples below). Be sure to use $^1$
-% etc. to indicate your MS, PhD, or BS students as indicated by the template
+% etc. in the bibtex file to indicate your MS, PhD, or BS students as indicated by the template
 % (see Section "Publication Record" below).
 
 % NOTE: All the sections in this template are required by COE whether you have
@@ -39,8 +43,8 @@
 % this is your surname or another name that identifies you in an author list
 % (used to bold your name in your publications assuming you use one my BST files)
 \newcommand{\UNLcitename}{Bradley}
-\newcommand{\UNLrank}{Assistant Professor}
-\newcommand{\UNLdept}{Computer Science and Engineering Department}
+\newcommand{\UNLrank}{Associate Professor}
+\newcommand{\UNLdept}{School of Computing}
 \newcommand{\UNLphone}{(402) 472-0000}
 \newcommand{\UNLaddress}{301 Schorr Center}
 \newcommand{\UNLemail}{sampleqexample@unl.edu}
@@ -74,8 +78,8 @@
 
 % This prevents some of the info in the bibtex citations from bleeding over into
 % the right margin.
-% \sloppy
-\emergencystretch 3em
+\sloppy
+%\emergencystretch 3em
 
 \bibliographystyle{../bst/IEEEtranDOI-boldAuthor}
 % \bibliographystyle{IEEEtran}
@@ -114,7 +118,7 @@
 \section{Education and Employment History}
 
 \subsection{Education History}
-\begin{mydesc}
+\begin{outerdesc}
 \item[Your University]\hfill Somewhere\\
   % note that the "[]" after the \item prevent LaTeX from printing a bullet
   \textit{Ph.D., your area}\hfill August 2014\\
@@ -122,10 +126,10 @@
   Adviser: Dr. Your Adviser\\
   Area of Study: Your area of study
 
-\end{mydesc}
+\end{outerdesc}
 
 \subsection{Employment History}
-\begin{mydesc}
+\begin{outerdesc}
 
   % Include any officially recognized positions such as visiting scholar, adjunct
   % professor, etc. at institutions other than UNL
@@ -136,7 +140,7 @@
   \item \textbf{Assistant Professor}\hfill August 2015--current
   \item[] Your department
   \end{itemize}
-\end{mydesc}
+\end{outerdesc}
 
 % Section 2
 \section{Research Accomplishments}
@@ -145,26 +149,27 @@
 \subsection{Publication Record}
 
 % NOTE 1:
-% For \pubaddendum[tier][h-index or impact]:
-% Parameters:
-% #1 (optional) = what tier (first, second, third)
-% #2 (optional) = other information (h-index, impact factor, etc.)
-% Usage examples:
-% \pubaddendum[1] yields "(1st tier)" in bold
-% \pubaddendum[2][25\% acceptance rate] yields "(2nd tier, 25% acceptance rate)" in bold
-% \pubaddendum[][impact: 5.138] yields "(impact: 5.138)" in bold
+% \pubaddendum takes one argument and bolds it. This is where you would put any
+% notes about this publication (e.g., tier, impact factor, first author, etc.)
+% Helpful functions are:
+% \tier{1-3} yields properly typeset tier
+% \cont{#} yields "contribution: #%"
+% \accrate{#} yields "acceptance rate: #%"
+% \impact{#} yields "impact: #"
 
 % NOTE 2:
-% For the publications, I use J# (e.g., J1, J2) for journals, and C# (e.g., C1,
+% For the publications, I use reverse ordered J# (e.g., J1, J2) for journals, and C# (e.g., C1,
 % C2) for conferences. This lets me refer to them easily in a corresponding
 % research statement. If this is undesired, you can use the list mybibenum
-% rather than journalbib or conferencebib.
+% rather than revjournalbib or revconferencebib. If you want ordered (as opposed
+% to reverse ordered) lists use journalbib and conferencebib lists
 
 % NOTE 3:
 % To list publications I use a standard bibtex file (i.e., .bib), along with
 % bibentry as seen below. This is handy and avoids having to manually enter
-% publications. To get the bold author you'll need to modify the
-% bibliographystyle file. I can share mine if you want.
+% publications. To get the bold author you'll need to use the
+% bibliographystyle files from this repo (e.g., bst/IEEEtranDOI-boldAuthor) and
+% modify \UNLcitename above.
 
 \emph{
   The following subscripts are used to indicate student and other co-authors
@@ -186,11 +191,11 @@
 % Publications in print, complete bibliographic citation including author names 
 % in order they appear on paper, full journal name, volume number, page numbers,
 % etc., (or DOI in lieu of volume and page numbers), and % of your contribution.
-% \begin{mybibenum}
-\begin{journalbib}
-  % \setcounter{journalbibi}{1}
+\begin{revjournalbib}
 \item \bibentry{shang2020cooptimal}, \pubaddendum{\impact{4.292}, \cont{30}}
-\end{journalbib}
+\item \bibentry{sadrimoshkenani2021survey}, \pubaddendum{\impact{1.267},
+    \cont{30}}
+\end{revjournalbib}
 
 % Section 2.1.2
 \subsubsection{Peer Reviewed Journal Publications Accepted for Publication}
@@ -203,9 +208,9 @@
 % contribution.  An acceptance letter written on official letterhead of the 
 % journal or of the appropriate journal letter must be included in Appendix A.
 
-% \begin{journalbib}
-%   % \setcounter{journalbibi}{0}
-% \end{journalbib}
+\begin{revjournalbib}[start=3]
+  \item \bibentry{plowcha2021online}
+\end{revjournalbib}
 
 % Section 2.1.3
 \subsubsection{Peer Reviewed Journal Publications Submitted for Review}
@@ -223,12 +228,11 @@
 % title, author names in order they appear on paper, dates of conference,
 % location of conference, and page numbers (or number of pages).
 
-% restart the mybibenum counter
-% \restartlist{mybibenum}
-\begin{conferencebib}
+\begin{revconferencebib}
 \item \bibentry{balasubramaniam2020investigating}, \pubaddendum{\tier{1},
     \accrate{24}, \emph{ICCPS Best Paper session}, \cont{50}}
-\end{conferencebib}
+\item \bibentry{zhang2019stability}, \pubaddendum{\tier{1}, \cont{40}}
+\end{revconferencebib}
 
 
 % NOT INCLUDED IN OFFICIAL COE CV TEMPLATE but needed for computer science
@@ -252,10 +256,10 @@
 % Section 2.1.8
 \subsubsection{Invited Talks/Keynote Speeches}
 % Numbered list (in reverse chronological order) of Invited talks or Keynote Speeches.  Indicate title of presentation, location, sponsor, and date.
-\begin{myenum}
+\begin{outerenum}
 \item ``Title of your talk,'' Some other University,
   Sponsor: your friend. Date of your talk
-\end{myenum}
+\end{outerenum}
 
 % Section 2.1.9
 \subsubsection{Other Publications}
@@ -300,14 +304,14 @@
 % Listing of grants
 % I got tired of keeping track of and writing out grant stuff. So I built LaTeX
 % commands that just print my grants. 
-\begin{grantsenum}
+\begin{revgrantsenum}[start=2]
 \item UNL College of Arts and Sciences. \emph{Project title}. Total: \$10,000
   (apportionment: 100\%), 08/2019–08/2020, PI (UNL): You, \tagged{INTERNAL}{SAP
     WBS: internal numbers}
   \begin{description}
     \item[Description:] Description of project
       \end{description}
-\end{grantsenum}
+\end{revgrantsenum}
 
 % 2.2.2
 \subsubsection{Externally Funded Research Grants}
@@ -333,7 +337,7 @@
 \end{taggedblock}
 
 % Listing of grants
-\begin{grantsenum}
+\begin{revgrantsenum}
 \item USDA. \emph{Externally funded project title}. Total: \$949,716, UNL:
   \$587,317 (apportionment: 50\%/\$264,820), 09/2016–12/2020, PI (UNL): who?, PI
   (other place): your friend, Co-PI (UNL): you?, USDA-NIFA \#numbers,
@@ -342,7 +346,7 @@
   \item[Description:] Very good description.
   \end{description}
 
-\end{grantsenum}
+\end{revgrantsenum}
 
 % 2.2.3
 \subsubsection{Externally Funded Research Grants Submitted}
@@ -427,9 +431,9 @@
 % Numbered list (in reverse chronological order) of PhD students supervised.
 % Include co-supervisors, dissertation title, whether you funded the student, 
 % and graduation date.
-\begin{myenum}
+\begin{outerenum}
   \item Your graduated student
-\end{myenum}
+\end{outerenum}
 
 % Section 3.2.2
 \subsubsection{PhD Students Currently in Progress}
@@ -445,8 +449,8 @@
 
 % Section 3.3.2
 \subsubsection{MS Students (thesis option) Currently in Progress}
-% \begin{myenum}
-% \end{myenum}
+% \begin{outerenum}
+% \end{outerenum}
 
 \subsubsection{Non-Thesis Option Graduate Students Advised}
 \subsubsection{Total Graduate Student Independent Research Projects Supervised}
@@ -487,9 +491,9 @@
 \subsubsection{International and National Teaching Awards and Recognition}
 % 3.7.2
 \subsubsection{Regional, Local, and University Teaching Awards and Recognition}
-\begin{myenum}
+\begin{outerenum}
   \item Your teaching award.
-\end{myenum}
+\end{outerenum}
 
 % 3.8
 \subsection{Other Teaching Accomplishments}
@@ -514,18 +518,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{untaggedblock}{COE}
   \subsection{Courses Taught}
-  \begin{myitemize}
+  \begin{outeritemize}
   \item Course \#: Course title\hfill Fall 2019
     \begin{itemize}
     \item[] 10 students (6 COMP, 3 MECH, 1 ABSE)
     \item[] Instructor Effectiveness Rating: 
     \end{itemize}
-  \end{myitemize}
+  \end{outeritemize}
 
   \subsection{Teaching Innovations}
-  \begin{myitemize}
+  \begin{outeritemize}
   \item Introduced new course: ``Course title''
-  \end{myitemize}
+  \end{outeritemize}
 
 \end{untaggedblock}
 
@@ -553,9 +557,9 @@
 % 4.1.3
 \subsubsection{Leadership Positions in International and National Organizations}
 % numbered list
-\begin{myenum}
+\begin{outerenum}
   \item An important leadership position
-\end{myenum}
+\end{outerenum}
 
 % 4.1.4
 \subsubsection{Leadership Positions in Regional and Local Organizations}

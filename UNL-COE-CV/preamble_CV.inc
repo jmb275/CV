@@ -9,6 +9,11 @@
 %
 % Changes:
 % 2020-10: Add nice comments and instructions for others to use the template
+% 2023-01:
+%    * Added support for reverse ordering journals, conferences,
+%      grants, and books.
+%    * Added support for listing books
+%    * Cleaned up preamble_CV.inc and added better documentation throughout
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
@@ -38,9 +43,11 @@
 
 % Enable tagging to create versions of the CV for COE and external
 \usepackage{tagging}
+% Makes for nice units (e.g., in \unit[10]{s} you will see that...)
+\usepackage{units}
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
 % 
 % Notice that the includefoot option can be commented OUT in order
@@ -54,7 +61,7 @@
 % IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
 % is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
 % below.
-% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Use these lines for letter-sized paper
 \usepackage[
@@ -68,9 +75,6 @@ margin=1in,               % 1 inch margins
 %% More layout: Get rid of indenting throughout entire document
 \setlength{\parindent}{0in}
 
-% used to change spacing around lists
-\usepackage[shortlabels]{enumitem}
-
 % bibentry is the magic that lets the references be printed right in line via
 % the \bibentry command + magic fixes for conflict with hyperref - STUPID
 \usepackage{bibentry}
@@ -79,7 +83,7 @@ margin=1in,               % 1 inch margins
 \makeatletter\let\@bibitem\saved@bibitem\makeatother
 
 % this formats my name in bold in the publications lists
-% Note: this requires either:
+% Note: this requires either (should be found in this repo):
 % plain-boldAuthor.bst
 % ieeetr-boldAuthor.bst
 % IEEEtranDOI-boldAuthor.bst
@@ -88,6 +92,7 @@ margin=1in,               % 1 inch margins
   \IfSubStr{#1}{\UNLcitename}{\textbf{#1}}{#1}%
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Format the Footer
 % 
 % NOTE: comment the +LP line and uncomment the -LP line to have page
@@ -95,6 +100,7 @@ margin=1in,               % 1 inch margins
 % 
 % NOTE: uncomment the \pagestyle{empty} line to get rid of all page
 % numbers (make sure includefoot is commented out above)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{fancyhdr,lastpage}
 \pagestyle{fancy}
@@ -119,12 +125,6 @@ margin=1in,               % 1 inch margins
 \rfoot{\small \thepage\ of \pageref*{LastPage} % +LP
   % \arabic{page}                               % -LP
 }
-% this doesn't seem to work.
-% \rfoot{\small \arabic{page} of \protect\pageref*{LastPage} % +LP
-%   % \arabic{page}                               % -LP
-% }
-
-\usepackage{units}
 
 %   add my name to the left hand side of the footer
 \lfoot{\small \UNLname{}}
@@ -137,8 +137,10 @@ margin=1in,               % 1 inch margins
   linkcolor=darkblue,urlcolor=darkblue,
   anchorcolor=darkblue,citecolor=darkblue}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Change the Section Headers
 % requires titlesec package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % {<command>}[<shape>]{<format>}{<label>}{<sep>}{<before>}{<after>}
 % only underline the name of the section % requires ulem package
@@ -148,58 +150,46 @@ margin=1in,               % 1 inch margins
 \titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{#1}
 \titleformat{\subsubsection}{\normalfont\itshape}{\thesubsubsection}{1em}{#1}
 
-% These custom lists are for the first list in a section, not for any sublists
-\newlist{myitemize}{itemize}{1}
-\setlist[myitemize,1]{label=\textbullet,leftmargin=0.52in,noitemsep,topsep=0pt,partopsep=0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changes to, and new lists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newlist{mydesc}{description}{1}
-\setlist[mydesc,1]{labelindent=0.34in,leftmargin=0.55in,itemsep=10pt,topsep=10pt,parsep=2pt,partopsep=0pt}
+% used to change spacing around lists
+\usepackage[shortlabels]{enumitem}
 
-\newlist{myenum}{enumerate}{1}
-\setlist[myenum]{label=\arabic*.,%
-  leftmargin=0.55in,
-  noitemsep,
-  partopsep=0pt,
-  topsep=0pt}
+% These custom lists are for the outer lists in a section, not for any sublists
+\newlist{outeritemize}{itemize}{1}
+\setlist[outeritemize,1]{label=\textbullet,leftmargin=0.52in,noitemsep,topsep=0pt,partopsep=0pt}
 
+\newlist{outerdesc}{description}{1}
+\setlist[outerdesc,1]{labelindent=0.34in,leftmargin=0.55in,itemsep=10pt,topsep=10pt,parsep=2pt,partopsep=0pt}
+
+\newlist{outerenum}{enumerate}{1}
+\setlist[outerenum]{label=\arabic*.,leftmargin=0.55in,noitemsep,partopsep=0pt,topsep=0pt}
+
+% Modifications to basic itemize and enumerate lists
 % Requires enumitem package
 \setlist[itemize]{noitemsep,topsep=2pt,parsep=0pt,partopsep=0pt}
 % \setlist[itemize]{leftmargin=7.5mm,noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 \setlist[enumerate]{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 % \setlist[description]{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 
-% Simpler bibsections for CV sections
-% (thanks to natbib for inspiration)
-% 
-% * For lists of references with hanging indents and no numbers:
-% 
-% \begin{mybibsection}
-% \item ...
-% \end{bibsection}
-% 
-% * For numbered lists of references (with hanging indents):
-% 
-% \begin{mybibenum}
-% \item ...
-% \end{bibenum}
-% 
-% Note that bibenum numbers continuously throughout. To reset the
-% counter, use
-% 
-% \restartlist{bibenum}
-% 
-% at the place where you want the numbering to reset.
-
 \makeatletter
+
+% Now make new lists to support numbering references in the CV
+
+% setup some lengths to help
 \newlength{\mybibhang}
 \setlength{\mybibhang}{1em}
 \newlength{\mybibsep}
 {\@listi \global\mybibsep\itemsep \global\advance\mybibsep by\parsep}
+
+% For lists of references with hanging indents and no numbers:
 \newlist{mybibsection}{itemize}{3}
 \setlist[mybibsection]{label=,
   leftmargin=\mybibhang,%
   itemindent=-\mybibhang,
-  % itemsep=\mybibsep,parsep=\z@,partopsep=0pt,
+  % itemsep=\mybibsep,
   itemsep=2pt,
   parsep=\z@,
   partopsep=0pt,
@@ -208,6 +198,11 @@ margin=1in,               % 1 inch margins
 \let\oldendmybibsection\endmybibsection
 \def\endmybibsection{\oldendmybibsection\vspace{-.6\baselineskip}}
 
+% For numbered lists of references (with hanging indents):
+% Note that bibenum numbers continuously throughout. To reset the
+% counter, use
+% \restartlist{bibenum}
+% at the place where you want the numbering to reset.
 \newlist{mybibenum}{enumerate}{3}
 \setlist[mybibenum]{label=[\arabic*],
   resume,
@@ -215,7 +210,7 @@ margin=1in,               % 1 inch margins
   % leftmargin={\mybibhang+0.55in},
   % leftmargin={\mybibhang+\widthof{[9999]}},%
   % itemindent=-\mybibhang,
-  % itemsep=\mybibsep,parsep=\z@,partopsep=0pt,
+  % itemsep=\mybibsep,
   itemsep=2pt,
   parsep=\z@,
   partopsep=0pt,
@@ -224,60 +219,282 @@ margin=1in,               % 1 inch margins
 \let\oldendmybibenum\endmybibenum
 \def\endmybibenum{\oldendmybibenum\vspace{-.6\baselineskip}}
 
-\newlist{journalbib}{enumerate}{3}
-\setlist[journalbib]{label=[J\arabic*],
-  resume,
-  leftmargin=0.55in,
-  % leftmargin={\mybibhang+0.55in},
-  % leftmargin={\mybibhang+\widthof{[9999]}},%
-  % itemindent=-\mybibhang,
-  % itemsep=\mybibsep,parsep=\z@,partopsep=0pt,
-  itemsep=2pt,
-  parsep=\z@,
-  partopsep=0pt,
-  topsep=0pt,
-  after=\vspace{10pt}}
-\let\oldendjournalbib\endjournalbib
-\def\endjournalbib{\oldendjournalbib\vspace{-.6\baselineskip}}
+% Setup lists for counting journals, conferences, grants, and books. There are
+% upward counting lists (e.g., journalbib) and reverse counting lists (e.g., revjournalbib). Each list has associated with it a letter so it can be uniquely
+% identified in other documents. "J#" for journals, "C#" for conferences, "B#"
+% for books, and "G#" for grants.
 
-\newlist{conferencebib}{enumerate}{3}
-\setlist[conferencebib]{label=[C\arabic*],
-  resume,
-  leftmargin=0.55in,
-  % leftmargin={\mybibhang+0.55in},
-  % leftmargin={\mybibhang+\widthof{[9999]}},%
-  % itemindent=-\mybibhang,
-  % itemsep=\mybibsep,parsep=\z@,partopsep=0pt,
-  itemsep=2pt,
-  parsep=\z@,
-  partopsep=0pt,
-  topsep=0pt,
-  after=\vspace{10pt}}
-\let\oldendconferencebib\endconferencebib
-\def\endconferencebib{\oldendconferencebib\vspace{-.6\baselineskip}}
+% Use etaremune as it lets you avoid having the [start=#] parameter compared to
+% the old solution
+\RequirePackage{etaremune}
 
-\newlist{grantsenum}{enumerate}{3}
-\setlist[grantsenum]{label=[G\arabic*],
-  resume,
+% For counting downwards in journal citations
+% usage \begin{revjournalbib} or \begin{revjournalbib}[start=#]
+\newenvironment{revjournalbib}[1][\empty]
+{\renewcommand\labelenumi{[J\theenumi]}%
+  \etaremune[
   leftmargin=0.55in,
-  % leftmargin={\mybibhang+0.55in},
-  % leftmargin={\mybibhang+\widthof{[9999]}},%
-  % itemindent=-\mybibhang,
-  % itemsep=\mybibsep,parsep=\z@,partopsep=0pt,
+  topsep=0pt,
   itemsep=2pt,
   parsep=\z@,
   partopsep=0pt,
+  #1]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endetaremune}
+
+% For counting upwards in journal citations
+\newenvironment{journalbib}
+{\renewcommand\labelenumi{[J\theenumi]}%
+  \enumerate[
+  leftmargin=0.55in,
   topsep=0pt,
-  after=\vspace{10pt}}
-\let\oldendgrantsenum\endgrantsenum
-\def\endgrantsenum{\oldendgrantsenum\vspace{-.6\baselineskip}}
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endenumerate}
+
+% For counting downwards in conference citations
+% usage \begin{revconferencebib} or \begin{revconferencebib}[start=#]
+\newenvironment{revconferencebib}[1][\empty]
+{\renewcommand\labelenumi{[C\theenumi]}%
+  \etaremune[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt,
+  #1]
+}
+{\endetaremune}
+
+% For counting upwards in conference citations
+\newenvironment{conferencebib}
+{\renewcommand\labelenumi{[C\theenumi]}%
+  \enumerate[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endenumerate}
+
+% For counting downwards in grants citations
+% usage \begin{revgrantsenum} or \begin{revgrantsenum}[start=#]
+\newenvironment{revgrantsenum}[1][\empty]
+{\renewcommand\labelenumi{[G\theenumi]}%
+  \etaremune[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt,
+  #1]
+}
+{\endetaremune}
+
+% For counting upwards in grants enumeration
+\newenvironment{grantsenum}
+{\renewcommand\labelenumi{[G\theenumi]}%
+  \enumerate[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endenumerate}
+
+% For counting downwards in books citations
+% usage \begin{revconferencebib} or \begin{revconferencebib}[start=#]
+\newenvironment{revbooksbib}[1][\empty]
+{\renewcommand\labelenumi{[B\theenumi]}%
+  \etaremune[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt,
+  #1]
+}
+{\endetaremune}
+
+% For counting upwards in books citations
+\newenvironment{booksbib}
+{\renewcommand\labelenumi{[C\theenumi]}%
+  \enumerate[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endenumerate}
+
+%%%%%%%%%% Old method for doing journal, conference, book, and grant lists %%%%%%%%%%%%%%%%%%%%
+
+% % magic setup for counting down on journals and conferences
+% \robustify\setcounter
+% \robustify\addtocounter
+% \AddEnumerateCounter{\PaddingUp}{\@arabic}{aaa}
+% \AddEnumerateCounter{\PaddingDown}{\@arabic}{aaa}
+% \newcommand\PaddingUp[1]{\expandafter\@arabic\csname c@#1\endcsname}
+% \newcommand\PaddingDown[1]{\PaddingUp{#1}\addtocounter{#1}{-2}}
+
+
+% % usage \begin{revjournalbib}[start=<# of journal pubs>]
+% \newlist{revjournalbib}{enumerate}{1}
+% \setlist[revjournalbib]{label=[J\PaddingDown*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendrevjournalbib\endrevjournalbib
+% \def\endrevjournalbib{\oldendrevjournalbib\vspace{-.6\baselineskip}}
+
+% % For counting upwards in journal citations
+% \newlist{journalbib}{enumerate}{1}
+% \setlist[journalbib]{label=[J\arabic*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendjournalbib\endjournalbib
+% \def\endjournalbib{\oldendjournalbib\vspace{-.6\baselineskip}}
+
+% % For counting downwards in conference citations
+% % usage \begin{revconferencebib}[start=<# of conf pubs>]
+% \newlist{revconferencebib}{enumerate}{1}
+% \setlist[revconferencebib]{label=[C\PaddingDown*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendrevconferencebib\endrevconferencebib
+% \def\endrevconferencebib{\oldendrevconferencebib\vspace{-.6\baselineskip}}
+
+% % For counting upwards in conference citations
+% \newlist{conferencebib}{enumerate}{1}
+% \setlist[conferencebib]{label=[C\arabic*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendconferencebib\endconferencebib
+% \def\endconferencebib{\oldendconferencebib\vspace{-.6\baselineskip}}
+
+% % For counting downwards in grants listing
+% % usage \begin{revgrantsenum}[start=<# of grants>]
+% \newlist{revgrantsenum}{enumerate}{1}
+% \setlist[revgrantsenum]{label=[G\PaddingDown*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendrevgrantsenum\endrevgrantsenum
+% \def\endrevgrantsenum{\oldendrevgrantsenum\vspace{-.6\baselineskip}}
+
+% % For counting upwards in grants citations
+% \newlist{grantsenum}{enumerate}{1}
+% \setlist[grantsenum]{label=[G\arabic*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendgrantsenum\endgrantsenum
+% \def\endgrantsenum{\oldendgrantsenum\vspace{-.6\baselineskip}}
+
+% % For counting downwards in grants listing
+% % usage \begin{revgrantsenum}[start=<# of grants>]
+% \newlist{revbooksenum}{enumerate}{1}
+% \setlist[revbooksenum]{label=[B\PaddingDown*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendrevbooksenum\endrevbooksenum
+% \def\endrevbooksenum{\oldendrevbooksenum\vspace{-.6\baselineskip}}
+
+% % For counting upwards in grants citations
+% \newlist{booksenum}{enumerate}{1}
+% \setlist[booksenum]{label=[B\arabic*],
+%   resume,
+%   leftmargin=0.55in,
+%   % leftmargin={\mybibhang+0.55in},
+%   % leftmargin={\mybibhang+\widthof{[9999]}},%
+%   % itemindent=-\mybibhang,
+%   % itemsep=\mybibsep,
+%   itemsep=2pt,
+%   parsep=\z@,
+%   partopsep=0pt,
+%   topsep=0pt,
+%   after=\vspace{10pt}}
+% \let\oldendbooksenum\endbooksenum
+% \def\endbooksenum{\oldendbooksenum\vspace{-.6\baselineskip}}
 
 \makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Helper Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% EXTRA SPACE
 
