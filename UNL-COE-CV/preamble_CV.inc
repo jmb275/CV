@@ -326,7 +326,7 @@ margin=1in,               % 1 inch margins
 
 % For counting upwards in books citations
 \newenvironment{booksbib}
-{\renewcommand\labelenumi{[C\theenumi]}%
+{\renewcommand\labelenumi{[B\theenumi]}%
   \enumerate[
   leftmargin=0.55in,
   topsep=0pt,
