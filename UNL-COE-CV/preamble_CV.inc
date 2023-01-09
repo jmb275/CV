@@ -184,41 +184,6 @@ margin=1in,               % 1 inch margins
 \newlength{\mybibsep}
 {\@listi \global\mybibsep\itemsep \global\advance\mybibsep by\parsep}
 
-% For lists of references with hanging indents and no numbers:
-\newlist{mybibsection}{itemize}{3}
-\setlist[mybibsection]{label=,
-  leftmargin=\mybibhang,%
-  itemindent=-\mybibhang,
-  % itemsep=\mybibsep,
-  itemsep=2pt,
-  parsep=\z@,
-  partopsep=0pt,
-  topsep=0pt,
-  after=\vspace{10pt}}
-\let\oldendmybibsection\endmybibsection
-\def\endmybibsection{\oldendmybibsection\vspace{-.6\baselineskip}}
-
-% For numbered lists of references (with hanging indents):
-% Note that bibenum numbers continuously throughout. To reset the
-% counter, use
-% \restartlist{bibenum}
-% at the place where you want the numbering to reset.
-\newlist{mybibenum}{enumerate}{3}
-\setlist[mybibenum]{label=[\arabic*],
-  resume,
-  leftmargin=0.55in,
-  % leftmargin={\mybibhang+0.55in},
-  % leftmargin={\mybibhang+\widthof{[9999]}},%
-  % itemindent=-\mybibhang,
-  % itemsep=\mybibsep,
-  itemsep=2pt,
-  parsep=\z@,
-  partopsep=0pt,
-  topsep=0pt,
-  after=\vspace{10pt}}
-\let\oldendmybibenum\endmybibenum
-\def\endmybibenum{\oldendmybibenum\vspace{-.6\baselineskip}}
-
 % Setup lists for counting journals, conferences, grants, and books. There are
 % upward counting lists (e.g., journalbib) and reverse counting lists (e.g., revjournalbib). Each list has associated with it a letter so it can be uniquely
 % identified in other documents. "J#" for journals, "C#" for conferences, "B#"
@@ -227,6 +192,49 @@ margin=1in,               % 1 inch margins
 % Use etaremune as it lets you avoid having the [start=#] parameter compared to
 % the old solution
 \RequirePackage{etaremune}
+
+% reverse counting for outer enum (not for inner lists)
+% usage \begin{revouterenum} or \begin{revouterenum}[start=#]
+\newenvironment{revouterenum}[1][\empty]
+{\renewcommand\labelenumi{\theenumi.}%
+  \etaremune[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt,
+  #1]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endetaremune}
+
+% For counting downwards in generic citations
+% usage \begin{revmybib} or \begin{revmybib}[start=#]
+\newenvironment{revmybib}[1][\empty]
+{\renewcommand\labelenumi{[\theenumi]}%
+  \etaremune[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt,
+  #1]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endetaremune}
+
+% For counting upwards in generic citations
+\newenvironment{mybib}
+{\renewcommand\labelenumi{[\theenumi]}%
+  \enumerate[
+  leftmargin=0.55in,
+  topsep=0pt,
+  itemsep=2pt,
+  parsep=\z@,
+  partopsep=0pt]%
+}
+%{\endetaremune\vspace{-0.6\baselineskip}}
+{\endenumerate}
 
 % For counting downwards in journal citations
 % usage \begin{revjournalbib} or \begin{revjournalbib}[start=#]
@@ -336,156 +344,6 @@ margin=1in,               % 1 inch margins
 }
 %{\endetaremune\vspace{-0.6\baselineskip}}
 {\endenumerate}
-
-%%%%%%%%%% Old method for doing journal, conference, book, and grant lists %%%%%%%%%%%%%%%%%%%%
-
-% % magic setup for counting down on journals and conferences
-% \robustify\setcounter
-% \robustify\addtocounter
-% \AddEnumerateCounter{\PaddingUp}{\@arabic}{aaa}
-% \AddEnumerateCounter{\PaddingDown}{\@arabic}{aaa}
-% \newcommand\PaddingUp[1]{\expandafter\@arabic\csname c@#1\endcsname}
-% \newcommand\PaddingDown[1]{\PaddingUp{#1}\addtocounter{#1}{-2}}
-
-
-% % usage \begin{revjournalbib}[start=<# of journal pubs>]
-% \newlist{revjournalbib}{enumerate}{1}
-% \setlist[revjournalbib]{label=[J\PaddingDown*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendrevjournalbib\endrevjournalbib
-% \def\endrevjournalbib{\oldendrevjournalbib\vspace{-.6\baselineskip}}
-
-% % For counting upwards in journal citations
-% \newlist{journalbib}{enumerate}{1}
-% \setlist[journalbib]{label=[J\arabic*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendjournalbib\endjournalbib
-% \def\endjournalbib{\oldendjournalbib\vspace{-.6\baselineskip}}
-
-% % For counting downwards in conference citations
-% % usage \begin{revconferencebib}[start=<# of conf pubs>]
-% \newlist{revconferencebib}{enumerate}{1}
-% \setlist[revconferencebib]{label=[C\PaddingDown*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendrevconferencebib\endrevconferencebib
-% \def\endrevconferencebib{\oldendrevconferencebib\vspace{-.6\baselineskip}}
-
-% % For counting upwards in conference citations
-% \newlist{conferencebib}{enumerate}{1}
-% \setlist[conferencebib]{label=[C\arabic*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendconferencebib\endconferencebib
-% \def\endconferencebib{\oldendconferencebib\vspace{-.6\baselineskip}}
-
-% % For counting downwards in grants listing
-% % usage \begin{revgrantsenum}[start=<# of grants>]
-% \newlist{revgrantsenum}{enumerate}{1}
-% \setlist[revgrantsenum]{label=[G\PaddingDown*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendrevgrantsenum\endrevgrantsenum
-% \def\endrevgrantsenum{\oldendrevgrantsenum\vspace{-.6\baselineskip}}
-
-% % For counting upwards in grants citations
-% \newlist{grantsenum}{enumerate}{1}
-% \setlist[grantsenum]{label=[G\arabic*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendgrantsenum\endgrantsenum
-% \def\endgrantsenum{\oldendgrantsenum\vspace{-.6\baselineskip}}
-
-% % For counting downwards in grants listing
-% % usage \begin{revgrantsenum}[start=<# of grants>]
-% \newlist{revbooksenum}{enumerate}{1}
-% \setlist[revbooksenum]{label=[B\PaddingDown*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendrevbooksenum\endrevbooksenum
-% \def\endrevbooksenum{\oldendrevbooksenum\vspace{-.6\baselineskip}}
-
-% % For counting upwards in grants citations
-% \newlist{booksenum}{enumerate}{1}
-% \setlist[booksenum]{label=[B\arabic*],
-%   resume,
-%   leftmargin=0.55in,
-%   % leftmargin={\mybibhang+0.55in},
-%   % leftmargin={\mybibhang+\widthof{[9999]}},%
-%   % itemindent=-\mybibhang,
-%   % itemsep=\mybibsep,
-%   itemsep=2pt,
-%   parsep=\z@,
-%   partopsep=0pt,
-%   topsep=0pt,
-%   after=\vspace{10pt}}
-% \let\oldendbooksenum\endbooksenum
-% \def\endbooksenum{\oldendbooksenum\vspace{-.6\baselineskip}}
 
 \makeatother
 
