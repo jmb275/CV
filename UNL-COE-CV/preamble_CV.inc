@@ -21,6 +21,7 @@
 
 % Don't like 10pt? Try 11pt or 12pt
 \documentclass[11pt]{article}
+\RequirePackage[hyphens]{url} % add here so that url loads with hyphens package
 \RequirePackage[T1]{fontenc}
 
 \usepackage{times}
