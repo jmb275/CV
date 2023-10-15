@@ -371,6 +371,7 @@ margin=1in,               % 1 inch margins
 
 % For \url{SOME_URL}, links SOME_URL to the url SOME_URL
 \providecommand*\url[1]{\href{#1}{#1}}
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
 % \providecommand*\url[1]{#1}
 % Same as above, but pretty-prints SOME_URL in teletype fixed-width font
 % \renewcommand*\url[1]{\href{#1}{\texttt{#1}}}
